@@ -2,10 +2,10 @@ package com.driver.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 @Entity
-@Table(name = "customers")
 public class Customer {
 
     @Id
@@ -16,10 +16,13 @@ public class Customer {
 
     private String password;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<TripBooking> tripBookings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookingList=new ArrayList<>();
+
 
     public Customer(String mobile, String password) {
+
         this.mobile = mobile;
         this.password = password;
     }
@@ -51,11 +54,11 @@ public class Customer {
         this.password = password;
     }
 
-    public List<TripBooking> getTripBookings() {
-        return tripBookings;
+    public List<TripBooking> getTripBookingList() {
+        return tripBookingList;
     }
 
-    public void setTripBookings(List<TripBooking> tripBookings) {
-        this.tripBookings = tripBookings;
+    public void setTripBookingList(List<TripBooking> tripBookingList) {
+        this.tripBookingList = tripBookingList;
     }
 }

@@ -1,6 +1,5 @@
 package com.driver.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.driver.services.AdminService;
@@ -29,38 +28,46 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void adminRegister(Admin admin) {
 		//Save the admin in the database
+		//Admin admin1=new Admin(admin.getUsername(), admin.getPassword());
+		//adminRepository1.save(admin1);
 		adminRepository1.save(admin);
 	}
 
 	@Override
 	public Admin updatePassword(Integer adminId, String password) {
 		//Update the password of admin with given id
-		Admin a=adminRepository1.findById(adminId).get();
-		a.setPassword(password);
-		adminRepository1.save(a);
-		return a;
+		if(adminRepository1.findById(adminId).isPresent()){
+			Admin admin=adminRepository1.findById(adminId).get();
+			admin.setPassword(password);
+			adminRepository1.save(admin);
+			return admin;
+		}
+		return null;
+
 	}
 
 	@Override
 	public void deleteAdmin(int adminId){
 		// Delete admin without using deleteById function
-		Admin a=adminRepository1.findById(adminId).get();
-		adminRepository1.delete(a);
+		//if(adminRepository1.findById(adminId).isPresent()){
+		Admin admin=adminRepository1.findById(adminId).get();
+		adminRepository1.delete(admin);
+		//	}
+
 	}
 
 	@Override
 	public List<Driver> getListOfDrivers() {
 		//Find the list of all drivers
-		List<Driver>drivers=new ArrayList<>();
-		drivers=driverRepository1.findAll();
-		return drivers;
+		return driverRepository1.findAll();
+
 	}
 
 	@Override
 	public List<Customer> getListOfCustomers() {
 		//Find the list of all customers
-		List<Customer>list=customerRepository1.findAll();
-		return list;
+		return customerRepository1.findAll();
+
 	}
 
 }

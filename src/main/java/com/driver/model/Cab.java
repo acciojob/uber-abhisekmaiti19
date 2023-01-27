@@ -1,27 +1,26 @@
 package com.driver.model;
 
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cabs")
 public class Cab {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private int perKmRate;
 
+    @Column(columnDefinition = "TINYINT(1)")
     private boolean available;
 
-    @OneToOne
+    @OneToOne()
     @JoinColumn
     private Driver driver;
 
-    public Cab(int perKmRate) {
+    public Cab(int perKmRate, boolean available) {
         this.perKmRate = perKmRate;
-        this.available = true;
+        this.available = available;
     }
 
     public Cab() {
@@ -58,6 +57,4 @@ public class Cab {
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
-
-
 }
